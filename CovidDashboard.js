@@ -1,11 +1,23 @@
 var len;
+var date;
+var dailyCases = 0;
 
 function myCallback(data){
-  var text = '';
   len = data.result.records.length;
+  var todayDate = new Date(Date.now());
+  var reportDate;
+  for(let i = 0; i < len; i++) {
+    reportDate = new Date(Date.parse(data.result.records[i].Case_Reported_Date));
+    //console.log("Todays month: " + todayDate.getMonth() + " Report Month: " + reportDate.getMonth());
+    //// TODO: Find better way to compile cases reported yesterday
+    if((todayDate.getDate()-1) === reportDate.getDate() && todayDate.getMonth() == reportDate.getMonth()) {
+      dailyCases++;
+    }
+  }
 
-  console.log(data.result);
-  console.log(data.result.total)
+  console.log(reportDate);
+  console.log(data.result.records);
+  console.log("Today there were " + dailyCases + " cases");
 }
 
 window.onload = pageReady;
