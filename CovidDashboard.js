@@ -1,42 +1,47 @@
 var len;
 var date;
-var dailyCases = 0;
+var caseData = new Array();
+var dataObject;
+var dateArray = [];
+var dailyCaseArray = [];
+var todayDate = new Date(Date.now());
 
-function myCallback(data){
-  len = data.result.records.length;
-  var todayDate = new Date(Date.now());
-  var reportDate;
-  for(let i = 0; i < len; i++) {
-    reportDate = new Date(Date.parse(data.result.records[i].Case_Reported_Date));
-    //console.log("Todays month: " + todayDate.getMonth() + " Report Month: " + reportDate.getMonth());
-    //// TODO: Find better way to compile cases reported yesterday
-    if((todayDate.getDate()-1) === reportDate.getDate() && todayDate.getMonth() == reportDate.getMonth()) {
-      dailyCases++;
-    }
-  }
-
-  console.log(reportDate);
-  console.log(data.result.records);
-  console.log("Today there were " + dailyCases + " cases");
+function myCallback(data) {
+  dataObject = data;
+  caseData=data.result.records;
 }
+//var caseDataArray = caseData[0];
 
 window.onload = pageReady;
+
 function pageReady() {
   var covidTotal = document.getElementById('CaseTotal');
+  var yesterdayCases = document.getElementById('DailyCases');
+
+  len = caseData.length;
+  //console.log(dataObject);
   covidTotal.textContent = len;
+  //yesterdayCases.innerHTML = dailyCases;
+  for(var loopDate = new Date('March 5, 2020 00:00:00'); loopDate <= todayDate; loopDate.setDate(loopDate.getDate() + 1)) {
+    var dailyCases = 0;
+    for(let i = 0; i < len; i++) {
+      var reportDate = new Date(Date.parse(caseData[i].Accurate_Episode_Date));
+      if(loopDate.getTime() == reportDate.getTime()) {
+        dailyCases++;
+      }
+    }
+    dailyCaseArray.push(dailyCases);
+  }
+
+  console.log(dailyCaseArray);
+
+  var svg = d3.select("body").append("svg").attr("height","520").attr("width","100%");
+  svg.selectAll("rect")
+    .data(dailyCaseArray)
+    .enter().append("rect")
+      .attr("height",function(d,i) { return d; })
+      .attr("width","1")
+      .attr("x",function(d,i){ return i*5; })
+      .attr("y",function(d,i){ return 520-(d); });
 
 }
-  //script = document.createElement("script");
-  //script.type = "text/javascript";
-  //script.src = "https://data.ontario.ca/api/3/action/datastore_search?callback=myCallback&resource_id=8a88fe6d-d8fb-41a3-9d04-f0550a44999f";
-  //document.head.appendChild(script);
-
-  //console.log(myCallback.success);
-  //script.addEventListener('load', postLoadFunction);
-  //document.head.appendChild(script);
-
-  //function postLoadFunction() {
-  //  console.log(myCallback());
-  //}
-
-  //var url="https://data.ontario.ca/api/3/action/datastore_search?callback=myCallback&resource_id=8a88fe6d-d8fb-41a3-9d04-f0550a44999f";

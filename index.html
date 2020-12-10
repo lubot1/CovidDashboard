@@ -3,19 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>COVID-19 Dashboard</title>
-
+    <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="jquery-3.5.1.js" charset="utf-8"></script>
     <script src="CovidDashboard.js" charset="utf-8"></script>
     <script src="https://data.ontario.ca/api/3/action/datastore_search?callback=myCallback&q=peel&resource_id=455fd63b-603d-4608-8216-7d8647f43350&limit=50000" charset="utf-8"></script>
+
   </head>
   <body>
     <header>
-      <h1>Ontario COVID-19 dashboard</h1>
+      <h1>Peel COVID-19 dashboard</h1>
     </header>
     <main>
       <div class="CaseTotalBox">
         <h2>Total cases to date in Peel</h2>
         <span id="CaseTotal"></span>
+      </div>
+      <div class="DailyCasesBox">
+        <h2>Cases reported yesterday</h2>
+        <span id="DailyCases"></span>
       </div>
     </main>
   </body>
