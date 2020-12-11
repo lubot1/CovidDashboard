@@ -3,25 +3,36 @@
   <head>
     <meta charset="utf-8">
     <title>COVID-19 Dashboard</title>
+    <link rel="stylesheet" href="./Stylesheets/stylesheet.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" charset="utf-8"></script>
     <script src="CovidDashboard.js" charset="utf-8"></script>
     <script src="https://data.ontario.ca/api/3/action/datastore_search?callback=myCallback&resource_id=8a88fe6d-d8fb-41a3-9d04-f0550a44999f&limit=1000" charset="utf-8"></script>
-
   </head>
   <body>
     <header>
+      <img id="logo" src="./Images/MyLogo.png" alt="Luis A. Botello logo">
       <h1>Peel COVID-19 dashboard</h1>
     </header>
+
     <main>
-      <div class="CaseTotalBox">
-        <h2>Total cases to date in Peel</h2>
-        <span id="CaseTotal"></span>
+      <div id="CovidAnalytics">
+        <canvas id="newChart" height="600" width="1000"></canvas>
+        <aside>
+          <div class="CaseTotalBox">
+            <h2>Total cases to date in Peel</h2>
+            <p id="CaseTotal"></p>
+          </div>
+          <div class="DailyCasesBox">
+            <h2>Cases reported yesterday</h2>
+            <p id="DailyCases"></p>
+          </div>
+          <div class="PerCapitaBox">
+            <h2>Cases /100,000</h2>
+            <p id="PerCapita"></p>
+            <p><strong id="DangerLevel"></strong></p>
+          </div>
+        </aside>
       </div>
-      <div class="DailyCasesBox">
-        <h2>Cases reported yesterday</h2>
-        <span id="DailyCases"></span>
-      </div>
-      <canvas id="newChart" height="500" width="1000"></canvas>
     </main>
   </body>
 </html>
