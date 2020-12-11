@@ -1,39 +1,30 @@
-var len;
-var date;
 var caseData = new Array();
 var dataObject;
 var dateArray = [];
 var dailyCaseArray = [];
-var todayDate = new Date(Date.now());
 
 function myCallback(data) {
   dataObject = data;
-  caseData=data.result.records;
+  caseData = data.result.records;
 }
-//var caseDataArray = caseData[0];
 
 window.onload = pageReady;
 
 function pageReady() {
   var covidTotal = document.getElementById('CaseTotal');
-  var yesterdayCases = document.getElementById('DailyCases');
+  var yesterdayCasesBox = document.getElementById('DailyCases');
 
-  len = caseData.length;
-  //console.log(dataObject);
-  covidTotal.textContent = len;
-  //yesterdayCases.innerHTML = dailyCases;
-  for(var loopDate = new Date('March 5, 2020 00:00:00'); loopDate <= todayDate; loopDate.setDate(loopDate.getDate() + 1)) {
-    var dailyCases = 0;
-    for(let i = 0; i < len; i++) {
-      var reportDate = new Date(Date.parse(caseData[i].Accurate_Episode_Date));
-      if(loopDate.getTime() == reportDate.getTime()) {
-        dailyCases++;
-      }
-    }
-    dailyCaseArray.push(dailyCases);
+  for(let i = 0; i < caseData.length; i++) {
+    dailyCaseArray.push(caseData[i].Peel_Public_Health);
+    dateArray.push(caseData[i].date);
   }
+  //Method to sum array found at https://www.tutorialrepublic.com/faq/how-to-find-the-sum-of-an-array-of-numbers-in-javascript.php
+  dailyCases = dailyCaseArray.reduce(function(a,b) {
+    return a + b;
+  },0);
 
-  console.log(dailyCaseArray);
+  covidTotal.innerHTML = dailyCases;
+  yesterdayCasesBox.innerHTML = dailyCaseArray[dailyCaseArray.length-1];
 
   var svg = d3.select("body").append("svg").attr("height","520").attr("width","100%");
   svg.selectAll("rect")
