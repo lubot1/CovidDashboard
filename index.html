@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>COVID-19 Dashboard</title>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="jquery-3.5.1.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" charset="utf-8"></script>
     <script src="CovidDashboard.js" charset="utf-8"></script>
     <script src="https://data.ontario.ca/api/3/action/datastore_search?callback=myCallback&resource_id=8a88fe6d-d8fb-41a3-9d04-f0550a44999f&limit=1000" charset="utf-8"></script>
 
@@ -22,6 +21,7 @@
         <h2>Cases reported yesterday</h2>
         <span id="DailyCases"></span>
       </div>
+      <canvas id="newChart" height="500" width="1000"></canvas>
     </main>
   </body>
 </html>
