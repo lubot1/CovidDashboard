@@ -1,0 +1,22 @@
+{
+  "name": "coviddashboard",
+  "version": "1.0.0",
+  "description": "Covid Dashboard",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lubot1/CovidDashboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lubot1/CovidDashboard/issues"
+  },
+  "homepage": "https://github.com/lubot1/CovidDashboard#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
